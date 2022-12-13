@@ -6,7 +6,7 @@ package parallel.ars;
 
 
 public class ReservationDetails {
-    private int reservationId;
+    
     private String fightSourse;
     private String flightDestination;
     private String arrivalTime;
@@ -14,22 +14,14 @@ public class ReservationDetails {
     private int seatCouts;
     private String flightClass; 
 
-    public ReservationDetails(int reservationId, String fightSourse, String flightDestination, String arrivalTime, String flightDate, int seatCouts, String flightClass) {
-        this.reservationId = reservationId;
+    public ReservationDetails(String fightSourse, String flightDestination, String arrivalTime, String flightDate, int seatCouts, String flightClass) {
+ 
         this.fightSourse = fightSourse;
         this.flightDestination = flightDestination;
         this.arrivalTime = arrivalTime;
         this.flightDate = flightDate;
         this.seatCouts = seatCouts;
         this.flightClass = flightClass;
-    }
-
-    public int getReservationId() {
-        return reservationId;
-    }
-
-    public void setReservationId(int reservationId) {
-        this.reservationId = reservationId;
     }
 
     public String getFlightClass() {
@@ -80,6 +72,12 @@ public class ReservationDetails {
 
     public void setSeatCouts(int seatCouts) {
         this.seatCouts = seatCouts;
+    }
+    
+    public void print(){
+        System.out.println(this.fightSourse+"\n"+ this.flightDestination+"\n"+this.arrivalTime+"\n"+
+                this.flightDate+"\n"+ this.flightClass+"\n"+this.seatCouts);
+    
     }
     
     
