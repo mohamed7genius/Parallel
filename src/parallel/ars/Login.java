@@ -1,5 +1,7 @@
 package parallel.ars;
 
+import java.util.Dictionary;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -134,8 +136,10 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String email = jTextFieldEmail.getText();
         String password = jPasswordField1.getText();
-        String sql = "select * from login where email = '"+email+"' and password = '"+password+"'";
-        if (DB.Login(sql)) {
+        String sql = "select * from users where email = '"+email+"' and password = '"+password+"'";
+        List<Dictionary> users = DB.UsersQuery(sql);
+        if (users != null && users.size() == 1) {
+            System.out.println("User fistName " + users.get(0).get("firstName"));
             MainPage p = new MainPage();
             p.setVisible(true);
             this.dispose();
