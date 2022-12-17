@@ -62,5 +62,25 @@ public class DB {
             System.out.println("Error : "+ e);
             return(false);
         }
+    }
+    public static boolean Login(String query) {
+        // MySql Database Connection      
+        try{
+            Class.forName("com.mysql.jdbc.Driver");  
+            Connection connection = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_fcih-db?characterEncoding=UTF-8",
+                    "freedb_new-user","yeFnSh&NdEEM3R3");
+            // Success Connection
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            if(rs.next()){
+                return(true);
+            } else{
+                return(false);
+            }
+        }catch( Exception e ){
+            // Error in database
+            System.out.println("Error : "+ e);
+            return(false);
+        }
     } 
 }
