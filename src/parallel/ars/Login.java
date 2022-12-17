@@ -161,9 +161,8 @@ public class Login extends javax.swing.JFrame {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-        MainPage p = new MainPage();
-        p.setVisible(true);
-        this.dispose();
+        new StartPage().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_backButtonActionPerformed
 
     /**
