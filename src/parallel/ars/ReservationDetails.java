@@ -14,11 +14,10 @@ public class ReservationDetails {
     private int seatCouts;
     private String flightClass; 
 
-    public ReservationDetails(String fightSourse, String flightDestination, String arrivalTime, String flightDate, int seatCouts, String flightClass) {
+    public ReservationDetails(String fightSourse, String flightDestination, String flightDate, int seatCouts, String flightClass) {
  
         this.fightSourse = fightSourse;
         this.flightDestination = flightDestination;
-        this.arrivalTime = arrivalTime;
         this.flightDate = flightDate;
         this.seatCouts = seatCouts;
         this.flightClass = flightClass;
