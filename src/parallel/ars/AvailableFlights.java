@@ -11,7 +11,7 @@ import java.awt.Toolkit;
  * @author Dell
  */
 public class AvailableFlights extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form AvailableFlights
      */

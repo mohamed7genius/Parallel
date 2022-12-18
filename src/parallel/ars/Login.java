@@ -1,11 +1,18 @@
 package parallel.ars;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Login
      */
@@ -135,18 +142,15 @@ public class Login extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
         String email = jTextFieldEmail.getText();
-        String password = jPasswordField1.getText();
-        String sql = "select * from users where email = '"+email+"' and password = '"+password+"'";
-        List<Dictionary> users = DB.UsersQuery(sql);
-        if (users != null && users.size() == 1) {
-            System.out.println("User fistName " + users.get(0).get("firstName"));
-            MainPage p = new MainPage();
-            p.setVisible(true);
+        String password = jPasswordField1.getText();        
+        ClientSocket.SendMessage(email+";"+password);
+        Boolean serverResponse = (Boolean)ClientSocket.ReceiveMessage();
+        if ( serverResponse ) {
+            ClientData.setEmail(email);
+            new MainPage().setVisible(true);
             this.dispose();
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Invalid Email or Password", "Error", JOptionPane.ERROR_MESSAGE);
-            jTextFieldEmail.setText("");
-            jPasswordField1.setText("");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 

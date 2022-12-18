@@ -1,11 +1,12 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Dictionary;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,32 +23,41 @@ public class threads implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("This is socket : " + getSocket() + " Is handled by thread :  " + Thread.currentThread().getName() );
-        InputStream inp = null;
-        BufferedReader brinp = null;
-        DataOutputStream out = null;
+        System.out.println("This is socket : " + getSocket() + " and is handled by thread : " + Thread.currentThread().getName() );
+        ObjectInputStream  inObj;
+        ObjectOutputStream outObj;
         try {
-            inp = socket.getInputStream();
-            brinp = new BufferedReader(new InputStreamReader(inp));
-            out = new DataOutputStream(socket.getOutputStream());
+            inObj = new ObjectInputStream (socket.getInputStream());
+            outObj = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             return;
         }
-        String line;
         while (true) {
             try {
-                line = brinp.readLine();
-                if ((line == null) || line.equalsIgnoreCase("QUIT")) {
+                var newObj = inObj.readObject();
+                if ((newObj == null)) {
+                    System.out.println("QUIT!");
                     socket.close();
                     return;
-                } else {
-                    out.writeBytes(line + "\n\r");
-                    out.flush();
+                } else if ( newObj instanceof String string ) { // Login
+                    String [] loginDetails = string.split(";");
+                    if ( loginDetails.length != 2 ) {
+                        outObj.writeObject(false);
+                    }
+                    String loginEmail = loginDetails[0]; 
+                    String loginPassword = loginDetails[1];
+                    outObj.writeObject(Login(loginEmail, loginPassword));
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Server Error: " + e);
                 return;
             }
         }
+    }
+    
+    private static Boolean Login(String email, String password){
+        String sql = "select * from users where email = '"+email+"' and password = '"+password+"'";
+        List<Dictionary> users = DB.UsersQuery(sql);
+        return users != null && users.size() == 1;
     }
 }
