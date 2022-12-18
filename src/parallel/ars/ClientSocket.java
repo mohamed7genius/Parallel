@@ -39,7 +39,7 @@ public class ClientSocket {
         }
     }
     
-    public static void SendMessage(String message){
+    public static void SendMessage(Object message){
         ClientSocket.InitSocket();
         try {
             System.out.println("Socket sendMessage " + socket);
