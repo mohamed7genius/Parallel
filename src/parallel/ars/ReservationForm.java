@@ -219,7 +219,11 @@ public class ReservationForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ReservationDetails flight = new ReservationDetails(flightSourse.getItemAt(flightSourse.getSelectedIndex()),flightDestination.getItemAt(flightDestination.getSelectedIndex()), new SimpleDateFormat("yyyy/MM/dd").format(flightDate.getDate()),seatsCount.getValue(),seatsClass.getItemAt(seatsClass.getSelectedIndex()));
+        
         flight.print();
+        this.dispose();
+        // Get availableFlights here first or try to get it inside
+        new AvailableFlights().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
