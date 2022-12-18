@@ -19,7 +19,7 @@ public class ParallelARS {
         List<Dictionary> users = DB.UsersQuery("Select * from users");
         System.out.println(users.get(0).get("firstName"));
         
-        new Login().setVisible(true);
+        new RegisterForm().setVisible(true);
     }
     
 }
