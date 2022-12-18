@@ -118,10 +118,14 @@ public class StartPage extends javax.swing.JFrame {
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         // TODO add your handling code here:
+        new SignUp().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnSignUpActionPerformed
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
         // TODO add your handling code here:
+        new Login().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnLogInActionPerformed
 
     /**
