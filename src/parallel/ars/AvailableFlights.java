@@ -6,6 +6,8 @@ package parallel.ars;
 
 import java.awt.Toolkit;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +23,13 @@ public class AvailableFlights extends javax.swing.JFrame {
     public AvailableFlights() {
         initComponents();
         setIconImage();
+        
+        
+            DefaultTableModel tb = (DefaultTableModel)availableFlightsTable.getModel();
+            availableFlights.forEach(flight -> {
+                tb.addRow(new Object[] { flight.getFlightSource(), flight.getFlightDestination(), flight.getFlightDate(), flight.getFlightClass(), flight.getSeatNumber()});
+            });
+        
     }
     
     public AvailableFlights(List<ReservationDetails> availableFlights){
