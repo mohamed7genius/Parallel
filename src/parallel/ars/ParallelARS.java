@@ -1,8 +1,5 @@
 package parallel.ars;
 
-import java.util.Dictionary;
-import java.util.List;
-
 public class ParallelARS {
 
     /**
@@ -16,10 +13,11 @@ public class ParallelARS {
                    // "VALUES ('Mohamed', 'Ashraf', '2022/12/5', '+201000000000', 'mohamed@fcih.com', '123456789', '0123456789012', 'Egypt' );");
         
         // Example on how to get any data from database
-        List<Dictionary> users = DB.UsersQuery("Select * from users");
-        System.out.println(users.get(0).get("firstName"));
+        /*List<Dictionary> users = DB.UsersQuery("Select * from users");
+        System.out.println(users.get(0).get("firstName"));*/
         
         new StartPage().setVisible(true);
+        
+        
     }
-    
 }
