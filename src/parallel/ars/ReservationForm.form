@@ -70,7 +70,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="flightSourse" min="-2" pref="113" max="-2" attributes="0"/>
+                      <Component id="flightSource" min="-2" pref="113" max="-2" attributes="0"/>
                       <Component id="flightDate" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -109,7 +109,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="flightSourse" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="flightSource" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -212,7 +212,7 @@
             <Property name="text" type="java.lang.String" value="Flighing To"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="flightSourse">
+        <Component class="javax.swing.JComboBox" name="flightSource">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="20">

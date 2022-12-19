@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import server.Constants;
 
 public class ClientSocket {
     private static Socket socket = null;
@@ -16,7 +17,7 @@ public class ClientSocket {
         if ( socket == null ) {
             try {
                 //establish socket connection to server
-                socket = new Socket("localhost", 5987);
+                socket = new Socket("localhost", Constants.getPortNumber());
             } catch (IOException ex) {
                 Logger.getLogger(ParallelARS.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -7,6 +7,8 @@ package parallel.ars;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +40,7 @@ public class ReservationForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        flightSourse = new javax.swing.JComboBox<>();
+        flightSource = new javax.swing.JComboBox<>();
         flightDestination = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -97,7 +99,7 @@ public class ReservationForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel4.setText("Flighing To");
 
-        flightSourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian ", "Qatar ", "Bahrain ", "Iraq ", "Jordan ", "Kuwait ", "Lebanon ", "Oman ", "Saudi Arabia ", "Syrian Arab Republic ", "United Arab Emirates ", "Yemen ", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
+        flightSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian ", "Qatar ", "Bahrain ", "Iraq ", "Jordan ", "Kuwait ", "Lebanon ", "Oman ", "Saudi Arabia ", "Syrian Arab Republic ", "United Arab Emirates ", "Yemen ", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
 
         flightDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian ", "Qatar ", "Bahrain ", "Iraq ", "Jordan ", "Kuwait ", "Lebanon ", "Oman ", "Saudi Arabia ", "Syrian Arab Republic ", "United Arab Emirates ", "Yemen ", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
 
@@ -157,7 +159,7 @@ public class ReservationForm extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(flightSourse, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(flightSource, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(flightDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +190,7 @@ public class ReservationForm extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(flightSourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(flightSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -223,11 +225,19 @@ public class ReservationForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FlightDetails flight = new FlightDetails(flightSourse.getItemAt(flightSourse.getSelectedIndex()),flightDestination.getItemAt(flightDestination.getSelectedIndex()), new SimpleDateFormat("yyyy/MM/dd").format(flightDate.getDate()),seatsClass.getItemAt(seatsClass.getSelectedIndex()));
-        flight.print();
-        this.dispose();
-        // Get availableFlights here first or try to get it inside
-        new AvailableFlights().setVisible(true);
+        FlightDetails flight = new FlightDetails(flightSource.getItemAt(flightSource.getSelectedIndex()),flightDestination.getItemAt(flightDestination.getSelectedIndex()), new SimpleDateFormat("yyyy/MM/dd").format(flightDate.getDate()),seatsClass.getItemAt(seatsClass.getSelectedIndex()));
+        ClientSocket.SendMessage(flight);
+        var serverResponse = ClientSocket.ReceiveMessage();
+        
+        if ( serverResponse == null ){
+            // There's no flights available
+            JOptionPane.showMessageDialog(null, "There's no flights available", "Warning", JOptionPane.OK_OPTION);
+        } else {
+            List<ReservationDetails> availableFlights = (List<ReservationDetails>) serverResponse;
+            new AvailableFlights(availableFlights).setVisible(true);
+            this.dispose();            
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void seatsClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seatsClassActionPerformed
@@ -278,7 +288,7 @@ public class ReservationForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser flightDate;
     private javax.swing.JComboBox<String> flightDestination;
-    private javax.swing.JComboBox<String> flightSourse;
+    private javax.swing.JComboBox<String> flightSource;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

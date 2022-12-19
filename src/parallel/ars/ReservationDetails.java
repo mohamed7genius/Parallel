@@ -12,8 +12,8 @@ public class ReservationDetails extends FlightDetails {
     
     protected int seatNumber;
     
-    public ReservationDetails(String fightSourse, String flightDestination, String flightDate, String flightClass, int seatNumber){
-        super(fightSourse, flightDestination, flightDate, flightClass);
+    public ReservationDetails(String flightSource, String flightDestination, String flightDate, String flightClass, int seatNumber){
+        super(flightSource, flightDestination, flightDate, flightClass);
         this.seatNumber = seatNumber;
     }
     
@@ -23,7 +23,7 @@ public class ReservationDetails extends FlightDetails {
     
     @Override
     public void print() {
-        System.out.println(this.fightSourse+"\n"+ this.flightDestination+"\n"+
+        System.out.println(this.flightSource+"\n"+ this.flightDestination+"\n"+
                 this.flightDate+"\n"+ this.flightClass+"\n"+ this.seatNumber);
     }
     

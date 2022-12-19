@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.Dictionary;
 import java.util.LinkedList;
 import java.util.List;
+import parallel.ars.FlightDetails;
 import parallel.ars.ReservationDetails;
 import parallel.ars.UserDetails;
 
@@ -51,12 +52,15 @@ public class threads implements Runnable {
                         outObj.writeObject(Login(loginEmail, loginPassword));
                     } else if ( "myTickets".equals(mainString[0]) ) {
                         if ( mainString.length != 2 ) {
-                            List<ReservationDetails> empty = new LinkedList<ReservationDetails>();
+                            List<ReservationDetails> empty = new LinkedList<>();
                             outObj.writeObject(empty);
                         }
                         // will return user tickets
                         String userEmail = mainString[1];
                         outObj.writeObject(GetUserTickets(userEmail));
+                    } else if (newObj instanceof FlightDetails flightDetails) { 
+                        // Will return a list of available flights for this flight
+                        outObj.writeObject(GetAvailableFlights(flightDetails));
                     } else {
                         // Error!
                         System.out.println("Server String Passed!");
@@ -101,5 +105,33 @@ public class threads implements Runnable {
         String sql = "select * from flights where userEmail = '"+email+"';";
         List<ReservationDetails> data = DB.ReservationQuery(sql);
         return data;
+    }
+    
+    private static List<ReservationDetails> GetAvailableFlights(FlightDetails mainFlight){
+        // Get all reserved flights in mainFlight source, dest. and date
+        String sql = "Select * from flights where flightSource='" + mainFlight.getFlightSource() + "' and flightDestination ='"
+                + mainFlight.getFlightDestination() + "' and flightDate='" + mainFlight.getFlightDate() + "' and flightClass='" + mainFlight.getFlightClass() + "';";
+        List<ReservationDetails> resFlights = DB.ReservationQuery(sql);
+        
+        // Get all reserved seats from reserved flights
+        List<Integer> resSeats = new LinkedList<>();
+        resFlights.forEach(flight -> {
+            resSeats.add(flight.getSeatNumber());
+        });
+        
+        
+        // Create a list for available seats : we have only 20 seats in our plane
+        List<ReservationDetails> availableFlights = new LinkedList<>();
+        for(int i=1;i<=Constants.getNumberOfSeats();i++){
+            if ( resSeats.indexOf(i) == -1 ) {
+                continue;
+            }
+            ReservationDetails newAvailableFlight = new ReservationDetails(
+                mainFlight.getFlightSource(), mainFlight.getFlightDestination(), mainFlight.getFlightDate(), mainFlight.getFlightClass(), i
+            );
+            availableFlights.add(newAvailableFlight);
+        }
+        
+        return availableFlights;
     }
 }

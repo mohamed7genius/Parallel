@@ -5,14 +5,14 @@ import java.io.Serializable;
 
 public class FlightDetails implements Serializable {
     
-    protected String fightSourse;
+    protected String flightSource;
     protected String flightDestination;
     protected String flightDate;
     protected String flightClass; 
 
-    public FlightDetails(String fightSourse, String flightDestination, String flightDate, String flightClass) {
+    public FlightDetails(String flightSource, String flightDestination, String flightDate, String flightClass) {
  
-        this.fightSourse = fightSourse;
+        this.flightSource = flightSource;
         this.flightDestination = flightDestination;
         this.flightDate = flightDate;
         this.flightClass = flightClass;
@@ -26,12 +26,12 @@ public class FlightDetails implements Serializable {
         this.flightClass = flightClass;
     }
  
-    public String getFightSourse() {
-        return fightSourse;
+    public String getFlightSource() {
+        return flightSource;
     }
 
-    public void setFightSourse(String fightSourse) {
-        this.fightSourse = fightSourse;
+    public void setFlightSource(String flightSource) {
+        this.flightSource = flightSource;
     }
 
     public String getFlightDestination() {
@@ -51,7 +51,7 @@ public class FlightDetails implements Serializable {
     }
     
     public void print(){
-        System.out.println(this.fightSourse+"\n"+ this.flightDestination+"\n"+
+        System.out.println(this.flightSource+"\n"+ this.flightDestination+"\n"+
                 this.flightDate+"\n"+ this.flightClass+"\n");
     
     }
