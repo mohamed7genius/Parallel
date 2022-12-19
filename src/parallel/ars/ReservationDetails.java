@@ -11,14 +11,23 @@ package parallel.ars;
 public class ReservationDetails extends FlightDetails {
     
     protected int seatNumber;
+    protected String userEmail;
     
     public ReservationDetails(String flightSource, String flightDestination, String flightDate, String flightClass, int seatNumber){
         super(flightSource, flightDestination, flightDate, flightClass);
         this.seatNumber = seatNumber;
     }
     
+    public void setUserEmail(String email){
+        this.userEmail = email;
+    }
+    
     public int getSeatNumber(){
         return this.seatNumber;
+    }
+    
+    public String getUserEmail(){
+        return this.userEmail;
     }
     
     @Override

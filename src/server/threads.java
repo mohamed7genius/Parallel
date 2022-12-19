@@ -58,10 +58,7 @@ public class threads implements Runnable {
                         // will return user tickets
                         String userEmail = mainString[1];
                         outObj.writeObject(GetUserTickets(userEmail));
-                    } else if (newObj instanceof FlightDetails flightDetails) { 
-                        // Will return a list of available flights for this flight
-                        outObj.writeObject(GetAvailableFlights(flightDetails));
-                    } else {
+                    }  else {
                         // Error!
                         System.out.println("Server String Passed!");
                         outObj.writeObject(false);
@@ -69,6 +66,16 @@ public class threads implements Runnable {
                     
                 } else if ( newObj instanceof UserDetails userDetails) {
                     outObj.writeObject(SignUp(userDetails));
+                } else if (newObj instanceof ReservationDetails reservationDetails) { 
+                    System.out.println("Receive Reservation!");
+                    // Get a ticket for this user : here the race condition will happen!
+                    outObj.writeObject(ReserveUserFlight(reservationDetails));
+                } else if (newObj instanceof FlightDetails flightDetails) { 
+                    // Will return a list of available flights for this flight
+                    outObj.writeObject(GetAvailableFlights(flightDetails));
+                } else {
+                    // Nothing matched return 
+                    outObj.writeObject(null);
                 }
             } catch (Exception e) {
                 System.out.println("Server Error: " + e);
@@ -123,7 +130,7 @@ public class threads implements Runnable {
         // Create a list for available seats : we have only 20 seats in our plane
         List<ReservationDetails> availableFlights = new LinkedList<>();
         for(int i=1;i<=Constants.getNumberOfSeats();i++){
-            if ( resSeats.indexOf(i) == -1 ) {
+            if ( resSeats.indexOf(i) != -1 ) {
                 continue;
             }
             ReservationDetails newAvailableFlight = new ReservationDetails(
@@ -134,4 +141,20 @@ public class threads implements Runnable {
         
         return availableFlights;
     }
+    
+    private static Boolean ReserveUserFlight(ReservationDetails flight){
+        String sql = "Select * from flights where flightSource='" + flight.getFlightSource() + "' and flightDestination ='"
+                + flight.getFlightDestination() + "' and flightDate='" + flight.getFlightDate() + "' and flightClass='" + flight.getFlightClass() + "' and seatNumber='" + flight.getSeatNumber() + "';";
+        List<ReservationDetails> flights = DB.ReservationQuery(sql);
+        
+        if ( !flights.isEmpty() ) {
+            return false;
+        }
+        
+        // Get the ticket for this user
+        DB.UpdateQuery("INSERT INTO flights (userEmail, flightSource, flightDestination, flightDate, flightClass, seatNumber )" +
+                "VALUES ('"+ flight.getUserEmail() +"', '"+ flight.getFlightSource()+"', '"+ flight.getFlightDestination()+"', '"+ flight.getFlightDate()+"', '"+ flight.getClass() +"', '"+ flight.getSeatNumber()+"');");
+        
+        return true;  
+    };
 }
