@@ -5,6 +5,7 @@
 package parallel.ars;
 
 import java.awt.Toolkit;
+import java.util.List;
 
 /**
  *
@@ -12,12 +13,19 @@ import java.awt.Toolkit;
  */
 public class AvailableFlights extends javax.swing.JFrame {
     
+    private List<ReservationDetails> availableFlights;
+    
     /**
      * Creates new form AvailableFlights
      */
     public AvailableFlights() {
         initComponents();
         setIconImage();
+    }
+    
+    public AvailableFlights(List<ReservationDetails> availableFlights){
+        this();
+        this.availableFlights = availableFlights;
     }
 
     /**
@@ -33,7 +41,7 @@ public class AvailableFlights extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        availableFlightsTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -59,18 +67,33 @@ public class AvailableFlights extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 153, 255));
         jLabel2.setText("Available Flights");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        availableFlightsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Source", "Destination", "Date", "Class", "Seat Number"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(availableFlightsTable);
 
         jButton1.setBackground(new java.awt.Color(51, 153, 255));
         jButton1.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
@@ -185,13 +208,13 @@ public class AvailableFlights extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable availableFlightsTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     private void setIconImage() {

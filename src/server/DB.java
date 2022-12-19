@@ -57,7 +57,7 @@ public class DB {
             List<ReservationDetails> results = new LinkedList<ReservationDetails>();
             while(rs.next()) {
                 ReservationDetails result = new ReservationDetails(
-                        rs.getString("fightSourse"),
+                        rs.getString("flightSource"),
                         rs.getString("flightDestination"),
                         rs.getString("flightDate"),
                         rs.getString("flightClass"),

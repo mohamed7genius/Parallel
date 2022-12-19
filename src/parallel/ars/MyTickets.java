@@ -25,7 +25,7 @@ public class MyTickets extends javax.swing.JFrame {
         if ( !serverResponse.isEmpty() ) {
             DefaultTableModel tb = (DefaultTableModel)myTicketsTable.getModel();
             serverResponse.forEach(flight -> {
-                tb.addRow(new Object[] { flight.getFightSourse(), flight.getFlightDestination(), flight.getFlightDate(), flight.getSeatNumber()});
+                tb.addRow(new Object[] { flight.getFlightSource(), flight.getFlightDestination(), flight.getFlightDate(), flight.getSeatNumber()});
             });
         } else {
             // No data for this user
