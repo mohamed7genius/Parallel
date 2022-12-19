@@ -9,6 +9,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import parallel.ars.ReservationDetails;
 
 public class DB {
     public static List<Dictionary> UsersQuery(String query) {
@@ -43,6 +44,37 @@ public class DB {
             return(null);
         }
     } 
+    
+    public static List<ReservationDetails> ReservationQuery(String query) {
+        // MySql Database Connection      
+        try{
+            Class.forName("com.mysql.jdbc.Driver");  
+            Connection connection = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_fcih-db?characterEncoding=UTF-8",
+                    "freedb_new-user","yeFnSh&NdEEM3R3");
+            // Success Connection
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            List<ReservationDetails> results = new LinkedList<ReservationDetails>();
+            while(rs.next()) {
+                ReservationDetails result = new ReservationDetails(
+                        rs.getString("fightSourse"),
+                        rs.getString("flightDestination"),
+                        rs.getString("flightDate"),
+                        rs.getString("flightClass"),
+                        rs.getInt("seatNumber")
+                );
+                results.add(result);
+            }
+            connection.close();
+            return(results);
+            // Close the connection
+        }catch( Exception e ){
+            // Error in database
+            System.out.println("Error : "+ e);
+            JOptionPane.showMessageDialog(null ,"Error in Database Please check your connection!");
+            return(null);
+        }
+    }
     
     public static boolean UpdateQuery(String query) {
         // MySql Database Connection      

@@ -1,14 +1,14 @@
 package server;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Dictionary;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import parallel.ars.ReservationDetails;
+import parallel.ars.UserDetails;
 
 public class threads implements Runnable {
     protected Socket socket;
@@ -39,14 +39,32 @@ public class threads implements Runnable {
                     System.out.println("QUIT!");
                     socket.close();
                     return;
-                } else if ( newObj instanceof String string ) { // Login
-                    String [] loginDetails = string.split(";");
-                    if ( loginDetails.length != 2 ) {
+                } else if ( newObj instanceof String string ) { // Login or userTickets
+                    String [] mainString = string.split(";");
+                    if ( "login".equals(mainString[0]) ) {
+                        if ( mainString.length != 3 ) {
+                            // There's something wrong!
+                            outObj.writeObject(false);
+                        }
+                        String loginEmail = mainString[1]; 
+                        String loginPassword = mainString[2];
+                        outObj.writeObject(Login(loginEmail, loginPassword));
+                    } else if ( "myTickets".equals(mainString[0]) ) {
+                        if ( mainString.length != 2 ) {
+                            List<ReservationDetails> empty = new LinkedList<ReservationDetails>();
+                            outObj.writeObject(empty);
+                        }
+                        // will return user tickets
+                        String userEmail = mainString[1];
+                        outObj.writeObject(GetUserTickets(userEmail));
+                    } else {
+                        // Error!
+                        System.out.println("Server String Passed!");
                         outObj.writeObject(false);
                     }
-                    String loginEmail = loginDetails[0]; 
-                    String loginPassword = loginDetails[1];
-                    outObj.writeObject(Login(loginEmail, loginPassword));
+                    
+                } else if ( newObj instanceof UserDetails userDetails) {
+                    outObj.writeObject(SignUp(userDetails));
                 }
             } catch (Exception e) {
                 System.out.println("Server Error: " + e);
@@ -59,5 +77,29 @@ public class threads implements Runnable {
         String sql = "select * from users where email = '"+email+"' and password = '"+password+"'";
         List<Dictionary> users = DB.UsersQuery(sql);
         return users != null && users.size() == 1;
+    }
+    
+    private static Boolean SignUp(UserDetails user){
+        if ( !user.getEmail().isEmpty()&& !user.getPassword().isEmpty()){
+            // Check that this email is not in DB
+            String sql = "select * from users where email = '"+user.getEmail()+"';";
+            List<Dictionary> users = DB.UsersQuery(sql);
+            if ( !users.isEmpty() ) {
+                System.out.println("User already signed up" + users.get(0).get("email"));
+                return false;
+            }
+            // Add this user to DB
+            DB.UpdateQuery("INSERT INTO users (firstName, lastName, birthDate, phoneNumber, email, password, nationalID, country ) VALUES ('"+
+                    user.getFirstName() +"', '"+ user.getLastName()+"', '"+ user.getBirthDate()+"', '"+ user.getPhoneNumber() +"', '"+ user.getEmail()+"', '"+ user.getPassword()+"', '"+ user.getNationalID()+"', '"+ user.getCountry() +"' );");
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private static List<ReservationDetails> GetUserTickets(String email){
+        String sql = "select * from flights where userEmail = '"+email+"';";
+        List<ReservationDetails> data = DB.ReservationQuery(sql);
+        return data;
     }
 }
