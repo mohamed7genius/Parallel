@@ -42,7 +42,7 @@ public class StartPage extends javax.swing.JFrame {
 
         logoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
 
-        btnSignUp.setBackground(new java.awt.Color(0, 102, 255));
+        btnSignUp.setBackground(new java.awt.Color(51, 153, 255));
         btnSignUp.setFont(new java.awt.Font("Imprint MT Shadow", 1, 14)); // NOI18N
         btnSignUp.setForeground(new java.awt.Color(255, 255, 255));
         btnSignUp.setText("Sign Up");
@@ -52,7 +52,7 @@ public class StartPage extends javax.swing.JFrame {
             }
         });
 
-        btnLogIn.setBackground(new java.awt.Color(0, 102, 255));
+        btnLogIn.setBackground(new java.awt.Color(51, 153, 255));
         btnLogIn.setFont(new java.awt.Font("Imprint MT Shadow", 1, 14)); // NOI18N
         btnLogIn.setForeground(new java.awt.Color(255, 255, 255));
         btnLogIn.setText("LogIn ");
