@@ -6,6 +6,8 @@ package client;
 
 import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -61,7 +63,7 @@ public class ReservationForm extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 153, 255));
         jLabel2.setText("Booking a Flight");
 
@@ -80,19 +82,19 @@ public class ReservationForm extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -102,8 +104,18 @@ public class ReservationForm extends javax.swing.JFrame {
         jLabel4.setText("Flighing To");
 
         flightSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian", "Qatar", "Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Saudi Arabia", "Syrian Arab Republic", "United Arab Emirates", "Yemen", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
+        flightSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                flightSourceActionPerformed(evt);
+            }
+        });
 
         flightDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian", "Qatar", "Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Saudi Arabia", "Syrian Arab Republic", "United Arab Emirates", "Yemen", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
+        flightDestination.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                flightDestinationActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel5.setText("Depart Date");
@@ -111,7 +123,7 @@ public class ReservationForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel7.setText("Class");
 
-        seatsClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Economic" }));
+        seatsClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Economic", "Business" }));
         seatsClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatsClassActionPerformed(evt);
@@ -253,6 +265,22 @@ public class ReservationForm extends javax.swing.JFrame {
         new MainPage().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void flightSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flightSourceActionPerformed
+        flightSource.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                String selectedItem = (String) flightSource.getSelectedItem();
+                    flightDestination.removeItem(selectedItem);
+                
+            
+            }
+        
+        });
+    }//GEN-LAST:event_flightSourceActionPerformed
+
+    private void flightDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flightDestinationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_flightDestinationActionPerformed
 
     /**
      * @param args the command line arguments

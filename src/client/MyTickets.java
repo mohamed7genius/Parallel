@@ -5,6 +5,7 @@
 package client;
 
 import java.awt.Cursor;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +21,7 @@ public class MyTickets extends javax.swing.JFrame {
      */
     public MyTickets() {
         initComponents();
+        setIconImage();
         setLocationRelativeTo(null);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         ClientSocket.SendMessage("myTickets;"+ClientData.getEmail());
@@ -197,10 +199,14 @@ public class MyTickets extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MyTickets().setVisible(true);
+                
             }
+            
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -212,4 +218,7 @@ public class MyTickets extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable myTicketsTable;
     // End of variables declaration//GEN-END:variables
+    private void setIconImage() {
+             setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));    
+    }
 }

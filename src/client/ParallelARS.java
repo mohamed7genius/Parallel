@@ -1,5 +1,6 @@
 package client;
 
+
 public class ParallelARS {
 
     /**
@@ -17,7 +18,6 @@ public class ParallelARS {
         System.out.println(users.get(0).get("firstName"));*/
         
         new StartPage().setVisible(true);
-        
         
     }
 }

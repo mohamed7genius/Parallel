@@ -5,6 +5,7 @@
 package client;
 
 import java.awt.Cursor;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ public class SignUp extends javax.swing.JFrame {
     public SignUp() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage();
     }
 
     /**
@@ -414,4 +416,7 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField phoneNumber;
     // End of variables declaration//GEN-END:variables
+    private void setIconImage() {
+             setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));    
+    }
 }
