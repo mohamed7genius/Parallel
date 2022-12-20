@@ -1,4 +1,4 @@
-package parallel.ars;
+package client;
 
 import java.awt.Cursor;
 import javax.swing.JOptionPane;
@@ -10,6 +10,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -82,7 +83,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 153, 255));

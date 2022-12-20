@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package parallel.ars;
+package client;
 
 import java.awt.Cursor;
 import java.awt.Toolkit;
@@ -22,6 +22,7 @@ public class AvailableFlights extends javax.swing.JFrame {
     public AvailableFlights() {
         initComponents();
         setIconImage();
+        setLocationRelativeTo(null);
     }
     
     public AvailableFlights(List<ReservationDetails> availableFlights){
@@ -65,7 +66,7 @@ public class AvailableFlights extends javax.swing.JFrame {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 153, 255));

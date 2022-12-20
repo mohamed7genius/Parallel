@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package parallel.ars;
+package client;
 
 import java.awt.Cursor;
 import java.util.List;
@@ -20,6 +20,7 @@ public class MyTickets extends javax.swing.JFrame {
      */
     public MyTickets() {
         initComponents();
+        setLocationRelativeTo(null);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         ClientSocket.SendMessage("myTickets;"+ClientData.getEmail());
         List<ReservationDetails> serverResponse = (List<ReservationDetails>)ClientSocket.ReceiveMessage();
@@ -29,6 +30,7 @@ public class MyTickets extends javax.swing.JFrame {
             serverResponse.forEach(flight -> {
                 tb.addRow(new Object[] { flight.getFlightSource(), flight.getFlightDestination(), flight.getFlightDate(), flight.getFlightClass(), flight.getSeatNumber()});
             });
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         } else {
             // No data for this user
             this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -58,7 +60,7 @@ public class MyTickets extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 153, 255));

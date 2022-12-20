@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import parallel.ars.FlightDetails;
-import parallel.ars.ReservationDetails;
-import parallel.ars.UserDetails;
+import client.FlightDetails;
+import client.ReservationDetails;
+import client.UserDetails;
 
 public class Task implements Runnable {
 

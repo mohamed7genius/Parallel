@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package parallel.ars;
+package client;
 
 import java.awt.Cursor;
 
@@ -17,6 +17,7 @@ public class MainPage extends javax.swing.JFrame {
      */
     public MainPage() {
         initComponents();
+        setLocationRelativeTo(null);
     }
    
     /**
@@ -59,7 +60,7 @@ public class MainPage extends javax.swing.JFrame {
         titleText.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
         titleText.setText("Airline Reservation System");
 
-        logoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
+        logoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
         jButton3.setBackground(new java.awt.Color(0, 153, 255));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
