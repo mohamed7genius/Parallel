@@ -198,13 +198,24 @@ public class Login extends javax.swing.JFrame {
         ClientSocket.SendMessage("login;"+email+";"+password);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         Boolean serverResponse = (Boolean)ClientSocket.ReceiveMessage();
-        if ( serverResponse ) {
-            ClientData.setEmail(email);
-            new MainPage().setVisible(true);
-            this.dispose();
-        } else {
-            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            JOptionPane.showMessageDialog(null, "Invalid Email or Password", "Error", JOptionPane.ERROR_MESSAGE);
+        if(email.equals("") && password.equals("")){
+            JOptionPane.showMessageDialog(null, "Please Enter Email and Password", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(!(email.equals("")) && password.equals("")){
+            JOptionPane.showMessageDialog(null, "Please Enter Password", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(email.equals("") && !(password.equals(""))){
+            JOptionPane.showMessageDialog(null, "Please Enter Email", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            if ( serverResponse ) {
+                ClientData.setEmail(email);
+                new MainPage().setVisible(true);
+                this.dispose();
+            } else {
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                JOptionPane.showMessageDialog(null, "Invalid Email or Password", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
