@@ -4,6 +4,7 @@
  */
 package parallel.ars;
 
+import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -167,6 +168,7 @@ public class AvailableFlights extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         // Get selected flight
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         int row = availableFlightsTable.getSelectedRow();
         
         ReservationDetails flight = new ReservationDetails(tb.getValueAt(row, 0).toString(), tb.getValueAt(row, 1).toString(), tb.getValueAt(row, 2).toString(), tb.getValueAt(row, 3).toString(), (int)tb.getValueAt(row, 4));
@@ -177,10 +179,11 @@ public class AvailableFlights extends javax.swing.JFrame {
         
         if ( !serverResponse ){
             // It wasn't available at check time
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             JOptionPane.showMessageDialog(null, "This seat is not available now! Please select another one", "Warning", JOptionPane.OK_OPTION);
         } else {
             // The user get this ticket redirect to user tickets page
-            JOptionPane.showMessageDialog(null, "Thanks for using ARS! You will be redirected to your tickets page", "Done", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "Thanks for using ARS! You will be redirected to your tickets page");
             new MyTickets().setVisible(true);
             this.dispose();            
         }

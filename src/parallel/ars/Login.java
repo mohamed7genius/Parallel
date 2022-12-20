@@ -1,5 +1,6 @@
 package parallel.ars;
 
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -34,6 +35,7 @@ public class Login extends javax.swing.JFrame {
         jTextFieldEmail = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setLayout(null);
 
@@ -194,12 +196,14 @@ public class Login extends javax.swing.JFrame {
         String email = jTextFieldEmail.getText();
         String password = jPasswordField1.getText();        
         ClientSocket.SendMessage("login;"+email+";"+password);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         Boolean serverResponse = (Boolean)ClientSocket.ReceiveMessage();
         if ( serverResponse ) {
             ClientData.setEmail(email);
             new MainPage().setVisible(true);
             this.dispose();
         } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             JOptionPane.showMessageDialog(null, "Invalid Email or Password", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginButtonActionPerformed

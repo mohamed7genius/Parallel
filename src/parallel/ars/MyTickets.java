@@ -4,6 +4,7 @@
  */
 package parallel.ars;
 
+import java.awt.Cursor;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,7 @@ public class MyTickets extends javax.swing.JFrame {
      */
     public MyTickets() {
         initComponents();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         ClientSocket.SendMessage("myTickets;"+ClientData.getEmail());
         List<ReservationDetails> serverResponse = (List<ReservationDetails>)ClientSocket.ReceiveMessage();
         
@@ -29,6 +31,7 @@ public class MyTickets extends javax.swing.JFrame {
             });
         } else {
             // No data for this user
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             JOptionPane.showMessageDialog(null, "You have no flights, Kindly book some flights so you can see them here!", "Warning", JOptionPane.OK_OPTION);
         }
      

@@ -43,7 +43,7 @@ public class Server {
                 System.out.println("I/O error: " + e);
             }
             // new thread for a client
-            executorService.execute(new threads(socket));
+            executorService.execute(new Task(socket));
         }
         
         // executorService.shutdown();

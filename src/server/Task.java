@@ -14,12 +14,12 @@ import parallel.ars.FlightDetails;
 import parallel.ars.ReservationDetails;
 import parallel.ars.UserDetails;
 
-public class threads implements Runnable {
+public class Task implements Runnable {
 
     protected Socket socket;
     private static ReentrantLock reentrantlock = new ReentrantLock();
 
-    public threads(Socket socket) {
+    public Task(Socket socket) {
         this.socket = socket;
     }
 
@@ -158,7 +158,7 @@ public class threads implements Runnable {
             Thread.sleep(30000);
             System.out.println("This thread "+Thread.currentThread().getName()+" will continue work now");
         } catch (InterruptedException ex) {
-            Logger.getLogger(threads.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Task.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             // Check if the flight isn't already reserved

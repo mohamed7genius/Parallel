@@ -4,6 +4,7 @@
  */
 package parallel.ars;
 
+import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -226,11 +227,13 @@ public class ReservationForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FlightDetails flight = new FlightDetails(flightSource.getItemAt(flightSource.getSelectedIndex()),flightDestination.getItemAt(flightDestination.getSelectedIndex()), new SimpleDateFormat("yyyy/MM/dd").format(flightDate.getDate()),seatsClass.getItemAt(seatsClass.getSelectedIndex()));
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         ClientSocket.SendMessage(flight);
         var serverResponse = ClientSocket.ReceiveMessage();
         
         if ( serverResponse == null ){
             // There's no flights available
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             JOptionPane.showMessageDialog(null, "There's no flights available", "Warning", JOptionPane.OK_OPTION);
         } else {
             List<ReservationDetails> availableFlights = (List<ReservationDetails>) serverResponse;
