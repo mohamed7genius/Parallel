@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package parallel.ars;
+package client;
 
 import java.awt.Cursor;
 import java.awt.Toolkit;
@@ -23,6 +23,7 @@ public class ReservationForm extends javax.swing.JFrame {
     public ReservationForm() {
         initComponents();
         setIconImage();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -58,7 +59,7 @@ public class ReservationForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 153, 255));

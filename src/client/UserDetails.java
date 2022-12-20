@@ -1,4 +1,4 @@
-package parallel.ars;
+package client;
 
 import java.io.Serializable;
 

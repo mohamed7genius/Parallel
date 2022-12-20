@@ -1,4 +1,4 @@
-package parallel.ars;
+package client;
 
 public class ParallelARS {
 
