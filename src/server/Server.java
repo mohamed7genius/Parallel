@@ -25,7 +25,7 @@ public class Server {
             e.printStackTrace();
         }
         System.out.println("Server is listening for requests ...");
-        
+                
         /*DB.UpdateQuery("Create Table flights(id INT(64) NOT NULL AUTO_INCREMENT , userEmail VARCHAR(50) NOT NULL, flightSource VARCHAR(50) NOT NULL, flightDestination VARCHAR(50) NOT NULL, flightDate VARCHAR(50) NOT NULL, flightClass VARCHAR(50) NOT NULL, seatNumber VARCHAR(50) NOT NULL, PRIMARY KEY (ID))");
         DB.UpdateQuery("INSERT INTO flights (userEmail, flightSource, flightDestination, flightDate, flightClass, seatNumber )" +
                 "VALUES ('mohamed@fcih.com', 'Egypt', 'Iraq', '2022/12/19', 'Economy', '1');");
@@ -43,7 +43,7 @@ public class Server {
                 System.out.println("I/O error: " + e);
             }
             // new thread for a client
-            executorService.execute(new threads(socket));
+            executorService.execute(new Task(socket));
         }
         
         // executorService.shutdown();

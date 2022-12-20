@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package parallel.ars;
+package client;
 
+import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class ReservationForm extends javax.swing.JFrame {
     public ReservationForm() {
         initComponents();
         setIconImage();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -57,7 +59,7 @@ public class ReservationForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 153, 255));
@@ -99,9 +101,9 @@ public class ReservationForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel4.setText("Flighing To");
 
-        flightSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian ", "Qatar ", "Bahrain ", "Iraq ", "Jordan ", "Kuwait ", "Lebanon ", "Oman ", "Saudi Arabia ", "Syrian Arab Republic ", "United Arab Emirates ", "Yemen ", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
+        flightSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian", "Qatar", "Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Saudi Arabia", "Syrian Arab Republic", "United Arab Emirates", "Yemen", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
 
-        flightDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian ", "Qatar ", "Bahrain ", "Iraq ", "Jordan ", "Kuwait ", "Lebanon ", "Oman ", "Saudi Arabia ", "Syrian Arab Republic ", "United Arab Emirates ", "Yemen ", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
+        flightDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian", "Qatar", "Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Saudi Arabia", "Syrian Arab Republic", "United Arab Emirates", "Yemen", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel5.setText("Depart Date");
@@ -226,11 +228,13 @@ public class ReservationForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FlightDetails flight = new FlightDetails(flightSource.getItemAt(flightSource.getSelectedIndex()),flightDestination.getItemAt(flightDestination.getSelectedIndex()), new SimpleDateFormat("yyyy/MM/dd").format(flightDate.getDate()),seatsClass.getItemAt(seatsClass.getSelectedIndex()));
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         ClientSocket.SendMessage(flight);
         var serverResponse = ClientSocket.ReceiveMessage();
         
         if ( serverResponse == null ){
             // There's no flights available
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             JOptionPane.showMessageDialog(null, "There's no flights available", "Warning", JOptionPane.OK_OPTION);
         } else {
             List<ReservationDetails> availableFlights = (List<ReservationDetails>) serverResponse;

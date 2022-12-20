@@ -9,7 +9,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import parallel.ars.ReservationDetails;
+import client.ReservationDetails;
 
 public class DB {
     public static List<Dictionary> UsersQuery(String query) {

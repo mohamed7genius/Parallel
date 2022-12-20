@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package parallel.ars;
+package client;
 
+import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ public class AvailableFlights extends javax.swing.JFrame {
     public AvailableFlights() {
         initComponents();
         setIconImage();
+        setLocationRelativeTo(null);
     }
     
     public AvailableFlights(List<ReservationDetails> availableFlights){
@@ -64,7 +66,7 @@ public class AvailableFlights extends javax.swing.JFrame {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 153, 255));
@@ -167,6 +169,7 @@ public class AvailableFlights extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         // Get selected flight
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         int row = availableFlightsTable.getSelectedRow();
         
         ReservationDetails flight = new ReservationDetails(tb.getValueAt(row, 0).toString(), tb.getValueAt(row, 1).toString(), tb.getValueAt(row, 2).toString(), tb.getValueAt(row, 3).toString(), (int)tb.getValueAt(row, 4));
@@ -177,10 +180,11 @@ public class AvailableFlights extends javax.swing.JFrame {
         
         if ( !serverResponse ){
             // It wasn't available at check time
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             JOptionPane.showMessageDialog(null, "This seat is not available now! Please select another one", "Warning", JOptionPane.OK_OPTION);
         } else {
             // The user get this ticket redirect to user tickets page
-            JOptionPane.showMessageDialog(null, "Thanks for using ARS! You will be redirected to your tickets page", "Done", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "Thanks for using ARS! You will be redirected to your tickets page");
             new MyTickets().setVisible(true);
             this.dispose();            
         }

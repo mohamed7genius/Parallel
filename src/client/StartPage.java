@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package parallel.ars;
+package client;
 
 import java.awt.Toolkit;
 
@@ -18,6 +18,7 @@ public class StartPage extends javax.swing.JFrame {
     public StartPage() {
         initComponents();
         setIconImage();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -40,9 +41,9 @@ public class StartPage extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        logoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parallel/ars/logo.png"))); // NOI18N
+        logoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
 
-        btnSignUp.setBackground(new java.awt.Color(0, 102, 255));
+        btnSignUp.setBackground(new java.awt.Color(51, 153, 255));
         btnSignUp.setFont(new java.awt.Font("Imprint MT Shadow", 1, 14)); // NOI18N
         btnSignUp.setForeground(new java.awt.Color(255, 255, 255));
         btnSignUp.setText("Sign Up");
@@ -52,7 +53,7 @@ public class StartPage extends javax.swing.JFrame {
             }
         });
 
-        btnLogIn.setBackground(new java.awt.Color(0, 102, 255));
+        btnLogIn.setBackground(new java.awt.Color(51, 153, 255));
         btnLogIn.setFont(new java.awt.Font("Imprint MT Shadow", 1, 14)); // NOI18N
         btnLogIn.setForeground(new java.awt.Color(255, 255, 255));
         btnLogIn.setText("LogIn ");
