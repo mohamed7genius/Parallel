@@ -8,6 +8,8 @@ import java.util.Dictionary;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import parallel.ars.FlightDetails;
 import parallel.ars.ReservationDetails;
 import parallel.ars.UserDetails;
@@ -151,7 +153,13 @@ public class threads implements Runnable {
 
     private synchronized static Boolean ReserveUserFlight(ReservationDetails flight) {
         reentrantlock.lock();
-        
+        try {
+            System.out.println("This thread "+Thread.currentThread().getName()+" will take a nap for 30sec");
+            Thread.sleep(30000);
+            System.out.println("This thread "+Thread.currentThread().getName()+" will continue work now");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(threads.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             // Check if the flight isn't already reserved
             String sql = "Select * from flights where flightSource='" + flight.getFlightSource() + "' and flightDestination ='"
@@ -168,6 +176,5 @@ public class threads implements Runnable {
         } finally {
             reentrantlock.unlock();
         }
-        return false;
     }
 }
