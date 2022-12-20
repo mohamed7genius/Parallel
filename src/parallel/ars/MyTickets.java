@@ -25,7 +25,7 @@ public class MyTickets extends javax.swing.JFrame {
         if ( !serverResponse.isEmpty() ) {
             DefaultTableModel tb = (DefaultTableModel)myTicketsTable.getModel();
             serverResponse.forEach(flight -> {
-                tb.addRow(new Object[] { flight.getFlightSource(), flight.getFlightDestination(), flight.getFlightDate(), flight.getSeatNumber()});
+                tb.addRow(new Object[] { flight.getFlightSource(), flight.getFlightDestination(), flight.getFlightDate(), flight.getFlightClass(), flight.getSeatNumber()});
             });
         } else {
             // No data for this user
@@ -110,14 +110,14 @@ public class MyTickets extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Source", "Destination", "Date", "Seat Number"
+                "Source", "Destination", "Date", "Class", "Seat Number"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

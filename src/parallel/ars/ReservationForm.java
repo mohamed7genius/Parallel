@@ -99,9 +99,9 @@ public class ReservationForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel4.setText("Flighing To");
 
-        flightSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian ", "Qatar ", "Bahrain ", "Iraq ", "Jordan ", "Kuwait ", "Lebanon ", "Oman ", "Saudi Arabia ", "Syrian Arab Republic ", "United Arab Emirates ", "Yemen ", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
+        flightSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian", "Qatar", "Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Saudi Arabia", "Syrian Arab Republic", "United Arab Emirates", "Yemen", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
 
-        flightDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian ", "Qatar ", "Bahrain ", "Iraq ", "Jordan ", "Kuwait ", "Lebanon ", "Oman ", "Saudi Arabia ", "Syrian Arab Republic ", "United Arab Emirates ", "Yemen ", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
+        flightDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian", "Qatar", "Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Saudi Arabia", "Syrian Arab Republic", "United Arab Emirates", "Yemen", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel5.setText("Depart Date");

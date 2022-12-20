@@ -153,8 +153,7 @@ public class threads implements Runnable {
         
         // Get the ticket for this user
         DB.UpdateQuery("INSERT INTO flights (userEmail, flightSource, flightDestination, flightDate, flightClass, seatNumber )" +
-                "VALUES ('"+ flight.getUserEmail() +"', '"+ flight.getFlightSource()+"', '"+ flight.getFlightDestination()+"', '"+ flight.getFlightDate()+"', '"+ flight.getClass() +"', '"+ flight.getSeatNumber()+"');");
-        
+                "VALUES ('"+ flight.getUserEmail() +"', '"+ flight.getFlightSource()+"', '"+ flight.getFlightDestination()+"', '"+ flight.getFlightDate()+"', '"+ flight.getFlightClass()+"', '"+ flight.getSeatNumber()+"');");
         return true;  
     };
 }
