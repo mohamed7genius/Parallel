@@ -151,7 +151,7 @@ public class Task implements Runnable {
         return availableFlights;
     }
 
-    private synchronized static Boolean ReserveUserFlight(ReservationDetails flight) {
+    private static Boolean ReserveUserFlight(ReservationDetails flight) {
         // Check user email
         if ( flight.getUserEmail() == null || flight.getUserEmail().isBlank()){
             return false;
