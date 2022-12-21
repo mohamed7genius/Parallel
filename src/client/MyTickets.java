@@ -5,6 +5,7 @@
 package client;
 
 import java.awt.Cursor;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,7 @@ public class MyTickets extends javax.swing.JFrame {
             this.dispose();
         }
         setLocationRelativeTo(null);
+        setIconImage();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         ClientSocket.SendMessage("myTickets;"+ClientData.getEmail());
         List<ReservationDetails> serverResponse = (List<ReservationDetails>)ClientSocket.ReceiveMessage();
@@ -222,4 +224,7 @@ public class MyTickets extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable myTicketsTable;
     // End of variables declaration//GEN-END:variables
+    private void setIconImage() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+    }
 }

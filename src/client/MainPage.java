@@ -5,6 +5,7 @@
 package client;
 
 import java.awt.Cursor;
+import java.awt.Toolkit;
 
 /**
  *
@@ -18,6 +19,7 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage();
     }
    
     /**
@@ -181,4 +183,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel logoImg;
     private javax.swing.JLabel titleText;
     // End of variables declaration//GEN-END:variables
+    private void setIconImage() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+    }
 }
