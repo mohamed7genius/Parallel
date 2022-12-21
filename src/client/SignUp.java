@@ -5,6 +5,7 @@
 package client;
 
 import java.awt.Cursor;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ public class SignUp extends javax.swing.JFrame {
     public SignUp() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage();
     }
 
     /**
@@ -309,13 +311,40 @@ public class SignUp extends javax.swing.JFrame {
         ClientSocket.SendMessage(user);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         Boolean serverResponse = (Boolean)ClientSocket.ReceiveMessage();
-        if ( serverResponse ) {
-            ClientData.setEmail(user.getEmail());
-            new MainPage().setVisible(true);
-            this.dispose();
-        } else {
-            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            JOptionPane.showMessageDialog(null, "Invalid Details, Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+        
+        if(user.firstName.equals("")){
+            JOptionPane.showMessageDialog(null, "First name is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.lastName.equals("")){
+            JOptionPane.showMessageDialog(null, "Last name is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.nationalID.equals("")){
+            JOptionPane.showMessageDialog(null, "National ID is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.birthDate.equals("")){
+            JOptionPane.showMessageDialog(null, "BirthDate is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.country.equals("")){
+            JOptionPane.showMessageDialog(null, "Country is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.phoneNumber.equals("")){
+            JOptionPane.showMessageDialog(null, "Phone Number is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.email.equals("")){
+            JOptionPane.showMessageDialog(null, "Email is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.password.equals("")){
+            JOptionPane.showMessageDialog(null, "Password is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            if ( serverResponse ) {
+                ClientData.setEmail(user.getEmail());
+                new MainPage().setVisible(true);
+                this.dispose();
+            } else {
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                JOptionPane.showMessageDialog(null, "Invalid Details, Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
@@ -387,4 +416,7 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField phoneNumber;
     // End of variables declaration//GEN-END:variables
+    private void setIconImage() {
+             setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));    
+    }
 }

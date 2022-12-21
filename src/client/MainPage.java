@@ -5,6 +5,7 @@
 package client;
 
 import java.awt.Cursor;
+import java.awt.Toolkit;
 
 /**
  *
@@ -18,6 +19,7 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage();
     }
    
     /**
@@ -57,7 +59,7 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        titleText.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
+        titleText.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         titleText.setText("Airline Reservation System");
 
         logoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/logo.png"))); // NOI18N
@@ -176,4 +178,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel logoImg;
     private javax.swing.JLabel titleText;
     // End of variables declaration//GEN-END:variables
+    private void setIconImage() {
+             setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));    
+    }
 }
