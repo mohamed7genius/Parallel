@@ -6,7 +6,6 @@ package client;
 
 import java.awt.Cursor;
 import java.text.SimpleDateFormat;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
  *
@@ -303,19 +302,46 @@ public class SignUp extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelLoginMouseClicked
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
-        // TODO add your handling code here:
-        // We must validate this data first
+        // TODO add your handling code here
+        if(birthDate.getDate() == null){
+            JOptionPane.showMessageDialog(null, "BirthDate is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         UserDetails user = new UserDetails(firstName.getText(), lastName.getText(), email.getText(), password.getText(), nationalID.getText(), new SimpleDateFormat("yyyy/MM/dd").format(birthDate.getDate()), country.getText(), phoneNumber.getText());
-        ClientSocket.SendMessage(user);
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Boolean serverResponse = (Boolean)ClientSocket.ReceiveMessage();
-        if ( serverResponse ) {
-            ClientData.setEmail(user.getEmail());
-            new MainPage().setVisible(true);
-            this.dispose();
-        } else {
-            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            JOptionPane.showMessageDialog(null, "Invalid Details, Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+        // Validate user data
+        if(user.firstName.isBlank()){
+            JOptionPane.showMessageDialog(null, "First name is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.lastName.isBlank()){
+            JOptionPane.showMessageDialog(null, "Last name is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.email.isBlank()){
+            JOptionPane.showMessageDialog(null, "Email is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.password.isBlank()){
+            JOptionPane.showMessageDialog(null, "Password is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.country.isBlank()){
+            JOptionPane.showMessageDialog(null, "Country is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.nationalID.isBlank()){
+            JOptionPane.showMessageDialog(null, "National ID is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.phoneNumber.isBlank()){
+            JOptionPane.showMessageDialog(null, "Phone Number is mandatory", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            ClientSocket.SendMessage(user);
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Boolean serverResponse = (Boolean)ClientSocket.ReceiveMessage();
+            if ( serverResponse ) {
+                ClientData.setEmail(user.getEmail());
+                new MainPage().setVisible(true);
+                this.dispose();
+            } else {
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                JOptionPane.showMessageDialog(null, "Invalid Details, Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
