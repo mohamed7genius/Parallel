@@ -8,8 +8,6 @@ import java.util.Dictionary;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import client.FlightDetails;
 import client.ReservationDetails;
 import client.UserDetails;
@@ -62,6 +60,10 @@ public class Task implements Runnable {
                         }
                         // will return user tickets
                         String userEmail = mainString[1];
+                        if ( userEmail.isBlank()) {
+                            List<ReservationDetails> empty = new LinkedList<>();
+                            outObj.writeObject(empty);
+                        }
                         outObj.writeObject(GetUserTickets(userEmail));
                     } else {
                         // Error!
@@ -74,12 +76,7 @@ public class Task implements Runnable {
                 } else if (newObj instanceof ReservationDetails reservationDetails) {
                     System.out.println("Receive Reservation!");
                     // Get a ticket for this user : here the race condition will happen!
-                    reentrantlock.lock();
-                    try {
-                        outObj.writeObject(ReserveUserFlight(reservationDetails));
-                    } finally {
-                        reentrantlock.unlock();
-                    }
+                    outObj.writeObject(ReserveUserFlight(reservationDetails));
                 } else if (newObj instanceof FlightDetails flightDetails) {
                     // Will return a list of available flights for this flight
                     outObj.writeObject(GetAvailableFlights(flightDetails));
@@ -95,13 +92,16 @@ public class Task implements Runnable {
     }
 
     private static Boolean Login(String email, String password) {
+        if ( email.isBlank() || password.isBlank()){
+            return false;
+        }
         String sql = "select * from users where email = '" + email + "' and password = '" + password + "'";
         List<Dictionary> users = DB.UsersQuery(sql);
         return users != null && users.size() == 1;
     }
 
     private static Boolean SignUp(UserDetails user) {
-        if (!user.getEmail().isEmpty() && !user.getPassword().isEmpty()) {
+        if (!user.getEmail().isBlank() && !user.getPassword().isBlank()) {
             // Check that this email is not in DB
             String sql = "select * from users where email = '" + user.getEmail() + "';";
             List<Dictionary> users = DB.UsersQuery(sql);
@@ -152,14 +152,11 @@ public class Task implements Runnable {
     }
 
     private synchronized static Boolean ReserveUserFlight(ReservationDetails flight) {
-        reentrantlock.lock();
-        try {
-            System.out.println("This thread "+Thread.currentThread().getName()+" will take a nap for 30sec");
-            Thread.sleep(30000);
-            System.out.println("This thread "+Thread.currentThread().getName()+" will continue work now");
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Task.class.getName()).log(Level.SEVERE, null, ex);
+        // Check user email
+        if ( flight.getUserEmail() == null || flight.getUserEmail().isBlank()){
+            return false;
         }
+        reentrantlock.lock();
         try {
             // Check if the flight isn't already reserved
             String sql = "Select * from flights where flightSource='" + flight.getFlightSource() + "' and flightDestination ='"

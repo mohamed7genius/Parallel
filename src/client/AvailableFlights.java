@@ -181,6 +181,7 @@ public class AvailableFlights extends javax.swing.JFrame {
         if ( !serverResponse ){
             // It wasn't available at check time
             this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            tb.removeRow(row);
             JOptionPane.showMessageDialog(null, "This seat is not available now! Please select another one", "Warning", JOptionPane.OK_OPTION);
         } else {
             // The user get this ticket redirect to user tickets page
@@ -226,6 +227,11 @@ public class AvailableFlights extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                // Check that client is already logged in
+                if ( ClientData.getEmail() == null ) {
+                    new Login().setVisible(true);
+                    return;
+                }
                 new AvailableFlights().setVisible(true);
             }
         });

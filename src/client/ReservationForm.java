@@ -284,6 +284,11 @@ public class ReservationForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                // Check that client is already logged in
+                if ( ClientData.getEmail() == null ) {
+                    new Login().setVisible(true);
+                    return;
+                }
                 new ReservationForm().setVisible(true);
             }
         });

@@ -20,6 +20,11 @@ public class MyTickets extends javax.swing.JFrame {
      */
     public MyTickets() {
         initComponents();
+        // Check that client is already logged in
+        if ( ClientData.getEmail() == null ) {
+            new Login().setVisible(true);
+            this.dispose();
+        }
         setLocationRelativeTo(null);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         ClientSocket.SendMessage("myTickets;"+ClientData.getEmail());
@@ -198,6 +203,11 @@ public class MyTickets extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                // Check that client is already logged in
+                if ( ClientData.getEmail() == null ) {
+                    new Login().setVisible(true);
+                    return;
+                }
                 new MyTickets().setVisible(true);
             }
         });
