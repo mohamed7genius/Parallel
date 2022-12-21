@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.Cursor;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -11,6 +12,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage();
     }
 
     /**
@@ -290,4 +292,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JButton loginButton;
     // End of variables declaration//GEN-END:variables
+    private void setIconImage() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+    }
 }

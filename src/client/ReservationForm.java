@@ -6,6 +6,8 @@ package client;
 
 import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -102,6 +104,11 @@ public class ReservationForm extends javax.swing.JFrame {
         jLabel4.setText("Flighing To");
 
         flightSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian", "Qatar", "Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Saudi Arabia", "Syrian Arab Republic", "United Arab Emirates", "Yemen", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
+        flightSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                flightSourceActionPerformed(evt);
+            }
+        });
 
         flightDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Egypt", "Palestinian", "Qatar", "Bahrain", "Iraq", "Jordan", "Kuwait", "Lebanon", "Oman", "Saudi Arabia", "Syrian Arab Republic", "United Arab Emirates", "Yemen", "Lebanon", "Libya", "Morocco", "Mauritania", "Somalia", "Sudan", "Tunisia" }));
 
@@ -253,6 +260,18 @@ public class ReservationForm extends javax.swing.JFrame {
         new MainPage().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void flightSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flightSourceActionPerformed
+        flightSource.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                String selectedItem = (String) flightSource.getSelectedItem();
+                    flightDestination.removeItem(selectedItem);
+                
+            
+            }
+        
+        });       
+    }//GEN-LAST:event_flightSourceActionPerformed
 
     /**
      * @param args the command line arguments
